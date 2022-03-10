@@ -1,17 +1,17 @@
 {
-    "name": "edgewizz/mc2pq",
+    "name": "edgewizz/mc4pq",
     "description": "testing",
     "minimum-stability": "dev",
     "autoload": {
         "psr-4": {
             "App\\": "app/",
-            "Edgewizz\\Mc2pq\\": "src"
+            "Edgewizz\\Mc4pq\\": "src"
         }
     },
     "extra": {
         "laravel": {
             "providers": [
-                "Edgewizz\\Mc2pq\\Mc2pqServiceProvider"
+                "Edgewizz\\Mc4pq\\Mc4pqServiceProvider"
             ]
         }
     },

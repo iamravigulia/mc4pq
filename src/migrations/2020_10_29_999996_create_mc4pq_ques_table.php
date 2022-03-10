@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class CreateMc2pqQuesTable extends Migration
+class CreateMc4pqQuesTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,12 +13,14 @@ class CreateMc2pqQuesTable extends Migration
      */
     public function up()
     {
-        Schema::create('fmt_mc2pq_ques', function (Blueprint $table) {
+        Schema::create('fmt_mc4pq_ques', function (Blueprint $table) {
             $table->id();
             $table->longText('question')->nullable();
-            $table->foreignId('media1_id')->nullable();
-            $table->foreignId('media2_id')->nullable();
-            $table->tinyInteger('active')->default(1);
+            $table->foreignId('media1_id')->index()->nullable();
+            $table->foreignId('media2_id')->index()->nullable();
+            $table->foreignId('media3_id')->index()->nullable();
+            $table->foreignId('media4_id')->index()->nullable();
+            $table->tinyInteger('active')->index()->default(1);
             $table->string('hint')->nullable();
             $table->foreignId('difficulty_level_id')->nullable()->comment = 'id from difficulty_levels table';
             $table->string('format_title')->nullable();
@@ -33,6 +35,6 @@ class CreateMc2pqQuesTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('fmt_mc2pq_ques');
+        Schema::dropIfExists('fmt_mc4pq_ques');
     }
 }

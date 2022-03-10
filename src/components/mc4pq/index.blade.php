@@ -27,7 +27,7 @@
     </thead>
     <tbody>
         @php
-        $fmt_mof_ques = DB::table('fmt_mc2pq_ques')->get();
+        $fmt_mof_ques = DB::table('fmt_mc4pq_ques')->get();
         @endphp
         @foreach ($fmt_mof_ques as $que)
         <tr>
@@ -37,7 +37,7 @@
                 {{$que->question}}
                 <img src="{{url('/')}}/storage/{{$queque->url}}" style="width:40px; height:30px; object-fit:cover;"></li>
             </td>
-            @php $fmt_mof_ans = DB::table('fmt_mc2pq_ans')->where('question_id', $que->id)->get() @endphp
+            @php $fmt_mof_ans = DB::table('fmt_mc4pq_ans')->where('question_id', $que->id)->get() @endphp
             <td>
                 <ul>
                     @foreach ($fmt_mof_ans as $ans)
@@ -66,12 +66,12 @@
     </tbody>
 </table>
 <script>
-    function modalMC2PQ($id){
-        var modal = document.getElementById('modalMC2PQ'+$id);
+    function modalMC4PQ($id){
+        var modal = document.getElementById('modalMC4PQ'+$id);
         modal.classList.remove("hidden");
     }
-    function closemodalMC2PQ($id){
-        var modal = document.getElementById('modalMC2PQ'+$id);
+    function closemodalMC4PQ($id){
+        var modal = document.getElementById('modalMC4PQ'+$id);
         modal.classList.add("hidden");
     }
 </script>

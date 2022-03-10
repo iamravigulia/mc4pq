@@ -1,11 +1,11 @@
 <?php
 
-namespace edgewizz\Mc2pq;
+namespace edgewizz\Mc4pq;
 
 use Illuminate\Support\ServiceProvider;
 use Illuminate\Support\Facades\Blade;
 
-class Mc2pqServiceProvider extends ServiceProvider
+class Mc4pqServiceProvider extends ServiceProvider
 {
     /**
      * Register services.
@@ -14,7 +14,7 @@ class Mc2pqServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        $this->app->make('Edgewizz\Mc2pq\Controllers\Mc2pqController');
+        $this->app->make('Edgewizz\Mc4pq\Controllers\Mc4pqController');
     }
 
     /**
@@ -27,9 +27,9 @@ class Mc2pqServiceProvider extends ServiceProvider
         // dd($this);
         $this->loadRoutesFrom(__DIR__.'/routes.php');
         $this->loadMigrationsFrom(__DIR__.'/migrations');
-        $this->loadViewsFrom(__DIR__ . '/components', 'mc2pq');
-        Blade::component('mc2pq::mc2pq.open', 'mc2pq.open');
-        Blade::component('mc2pq::mc2pq.index', 'mc2pq.index');
-        Blade::component('mc2pq::mc2pq.edit', 'mc2pq.edit');
+        $this->loadViewsFrom(__DIR__ . '/components', 'mc4pq');
+        Blade::component('mc4pq::mc4pq.open', 'mc4pq.open');
+        Blade::component('mc4pq::mc4pq.index', 'mc4pq.index');
+        Blade::component('mc4pq::mc4pq.edit', 'mc4pq.edit');
     }
 }

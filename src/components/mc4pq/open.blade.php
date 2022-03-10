@@ -48,10 +48,10 @@
             cursor: pointer;
         }
     </style>
-    <form action="{{route('fmt.mc2pq.store')}}" method="post" class="fmt_box" enctype="multipart/form-data">
+    <form action="{{route('fmt.mc4pq.store')}}" method="post" class="fmt_box" enctype="multipart/form-data">
         <input type="integer" name="problem_set_id" value="{{$pbs72 ?? ''}}" hidden style="border:1px solid #000000;">
         <input type="integer" name="format_type_id" value="{{$fmt72 ?? ''}}" hidden style="border:1px solid #000000;">
-        <div class="fmt_headline">Add a mc2pq</div>
+        <div class="fmt_headline">Add a mc4pq</div>
         <div>
             <label class="fmt_label" for="">Format Title</label>
             <input class="fmt_input" type="text" name="format_title" placeholder="format_title" style="width: 100%;">
@@ -67,6 +67,14 @@
         <div>
             <label class="fmt_label" for="">Image 2</label>
             <input style="margin-top:10px;" type="file" accept="image/*" name="q_media_2" id=""required>
+        </div>
+        <div>
+            <label class="fmt_label" for="">Image 3</label>
+            <input style="margin-top:10px;" type="file" accept="image/*" name="q_media_3" id="">
+        </div>
+        <div>
+            <label class="fmt_label" for="">Image 4</label>
+            <input style="margin-top:10px;" type="file" accept="image/*" name="q_media_4" id="">
         </div>
         <div>
             <label class="fmt_label" for="">Comment</label>
@@ -152,7 +160,7 @@
     </form>
     {{-- <button id="addOption">Add option</button> --}}
     {{--  --}}
-    <form action="{{route('fmt.mc2pq.csv')}}" method="POST" enctype='multipart/form-data' style="margin:20px 40px;">
+    <form action="{{route('fmt.mc4pq.csv')}}" method="POST" enctype='multipart/form-data' style="margin:20px 40px;">
         @csrf
         <input type="integer" name="problem_set_id" value="{{$pbs72 ?? ''}}" hidden style="border:1px solid #000000;">
         <input type="integer" name="format_type_id" value="{{$fmt72 ?? ''}}" hidden style="border:1px solid #000000;">

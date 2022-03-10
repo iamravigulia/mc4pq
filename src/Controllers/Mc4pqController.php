@@ -1,15 +1,15 @@
 <?php
 
-namespace edgewizz\mc2pq\Controllers;
+namespace edgewizz\mc4pq\Controllers;
 
 use App\Http\Controllers\Controller;
 use App\Models\Media;
 use Edgewizz\Edgecontent\Models\ProblemSetQues;
-use Edgewizz\Mc2pq\Models\Mc2pqAns;
-use Edgewizz\Mc2pq\Models\Mc2pqQues;
+use Edgewizz\Mc4pq\Models\Mc4pqAns;
+use Edgewizz\Mc4pq\Models\Mc4pqQues;
 use Illuminate\Http\Request;
 
-class Mc2pqController extends Controller
+class Mc4pqController extends Controller
 {
     // public function test()
     // {
@@ -17,7 +17,7 @@ class Mc2pqController extends Controller
     // }
     public function store(Request $request)
     {
-        $pmQ = new Mc2pqQues();
+        $pmQ = new Mc4pqQues();
         $pmQ->question              = $request->question;
         $pmQ->format_title          = $request->format_title;
         $pmQ->difficulty_level_id   = $request->difficulty_level_id;
@@ -34,12 +34,29 @@ class Mc2pqController extends Controller
         $q_media_2->url = 'answers/' . time() . $request->q_media_2->getClientOriginalName();
         $q_media_2->save();
         $pmQ->media2_id = $q_media_2->id;
+
+        if($request->q_media_3){
+            $q_media_3 = new Media();
+            $request->q_media_3->storeAs('public/answers', time() . $request->q_media_3->getClientOriginalName());
+            $q_media_3->url = 'answers/' . time() . $request->q_media_3->getClientOriginalName();
+            $q_media_3->save();
+            $pmQ->media2_id = $q_media_3->id;
+        }
+
+        if($request->q_media_4){
+            $q_media_4 = new Media();
+            $request->q_media_4->storeAs('public/answers', time() . $request->q_media_4->getClientOriginalName());
+            $q_media_4->url = 'answers/' . time() . $request->q_media_4->getClientOriginalName();
+            $q_media_4->save();
+            $pmQ->media2_id = $q_media_4->id;
+        }
+
         /* image1 */
         $pmQ->hint = $request->hint;
         $pmQ->save();
         /* answer1 */
         if ($request->answer_1) {
-            $answer_1 = new Mc2pqAns();
+            $answer_1 = new Mc4pqAns();
             $answer_1->question_id = $pmQ->id;
             $answer_1->answer = $request->answer_1;
             if ($request->ans_correct_1) {
@@ -51,7 +68,7 @@ class Mc2pqController extends Controller
         /* //answer1 */
         /* answer2 */
         if ($request->answer_2) {
-            $answer_2 = new Mc2pqAns();
+            $answer_2 = new Mc4pqAns();
             $answer_2->question_id = $pmQ->id;
             $answer_2->answer = $request->answer_2;
             if ($request->ans_correct_2) {
@@ -63,7 +80,7 @@ class Mc2pqController extends Controller
         /* //answer2 */
         /* answer3 */
         if ($request->answer_3) {
-            $answer_3 = new Mc2pqAns();
+            $answer_3 = new Mc4pqAns();
             $answer_3->question_id = $pmQ->id;
             $answer_3->answer = $request->answer_3;
             if ($request->ans_correct_3) {
@@ -75,7 +92,7 @@ class Mc2pqController extends Controller
         /* //answer3 */
         /* answer4 */
         if ($request->answer_4) {
-            $answer_4 = new Mc2pqAns();
+            $answer_4 = new Mc4pqAns();
             $answer_4->question_id = $pmQ->id;
             $answer_4->answer = $request->answer_4;
             if ($request->ans_correct_4) {
@@ -105,7 +122,7 @@ class Mc2pqController extends Controller
             if($uploadImage[0] == $question_image){
                 // dd($valueImage);
                 $media = new Media();
-                $valueImage->storeAs('public/question_images', time() . $valueImage->getClientOriginalName());
+                $valueImage->storeAs('public/question_images', time() . uniqid() . $valueImage->getClientOriginalName());
                 $media->url = 'question_images/' . time() . $valueImage->getClientOriginalName();
                 $media->save();
                 return $media->id;
@@ -133,7 +150,7 @@ class Mc2pqController extends Controller
             // Check file size
             if ($fileSize <= $maxFileSize) {
                 // File upload location
-                $location = 'uploads/mc2pq';
+                $location = 'uploads/mc4pq';
                 // Upload file
                 $file->move($location, $filename);
                 // Import CSV to Database
@@ -175,11 +192,13 @@ class Mc2pqController extends Controller
                         "media2"        => $importData[15],
                         "level"         => $importData[16],
                         "hint"          => $importData[17],
+                        "media3"        => $importData[18],
+                        "media4"        => $importData[19],
                     );
                     // var_dump($insertData['answer1']);
                     /*  */
                     if ($insertData['question']) {
-                        $fill_Q = new Mc2pqQues();
+                        $fill_Q = new Mc4pqQues();
                         $fill_Q->question = $insertData['question'];
                         if($request->format_title){
                             $fill_Q->format_title = $request->format_title;
@@ -201,6 +220,14 @@ class Mc2pqController extends Controller
                             $media2_id = $this->imagecsv($insertData['media2'], $images);
                             $fill_Q->media2_id = $media2_id;
                         }
+                        if (!empty($insertData['media3']) && $insertData['media3'] != '') {
+                            $media3_id = $this->imagecsv($insertData['media3'], $images);
+                            $fill_Q->media3_id = $media3_id;
+                        }
+                        if (!empty($insertData['media4']) && $insertData['media4'] != '') {
+                            $media4_id = $this->imagecsv($insertData['media4'], $images);
+                            $fill_Q->media4_id = $media4_id;
+                        }
                         if ($insertData['hint'] == '-') {
                         }else{
                             $fill_Q->hint = $insertData['hint'];
@@ -216,7 +243,7 @@ class Mc2pqController extends Controller
 
                         if ($insertData['answer1'] == '-') {
                         } else {
-                            $f_Ans1 = new Mc2pqAns();
+                            $f_Ans1 = new Mc4pqAns();
                             $f_Ans1->question_id = $fill_Q->id;
                             $f_Ans1->answer = $insertData['answer1'];
                             $f_Ans1->arrange = $insertData['arrange1'];
@@ -228,7 +255,7 @@ class Mc2pqController extends Controller
                         }
                         if ($insertData['answer2'] == '-') {
                         } else {
-                            $f_Ans2 = new Mc2pqAns();
+                            $f_Ans2 = new Mc4pqAns();
                             $f_Ans2->question_id = $fill_Q->id;
                             $f_Ans2->answer = $insertData['answer2'];
                             $f_Ans2->arrange = $insertData['arrange2'];
@@ -240,7 +267,7 @@ class Mc2pqController extends Controller
                         }
                         if ($insertData['answer3'] == '-') {
                         } else {
-                            $f_Ans3 = new Mc2pqAns();
+                            $f_Ans3 = new Mc4pqAns();
                             $f_Ans3->question_id = $fill_Q->id;
                             $f_Ans3->answer = $insertData['answer3'];
                             $f_Ans3->arrange = $insertData['arrange3'];
@@ -252,7 +279,7 @@ class Mc2pqController extends Controller
                         }
                         if ($insertData['answer4'] == '-') {
                         } else {
-                            $f_Ans4 = new Mc2pqAns();
+                            $f_Ans4 = new Mc4pqAns();
                             $f_Ans4->question_id = $fill_Q->id;
                             $f_Ans4->answer = $insertData['answer4'];
                             $f_Ans4->arrange = $insertData['arrange4'];
@@ -276,7 +303,7 @@ class Mc2pqController extends Controller
     }
 
     public function update($id, Request $request){
-        $q = Mc2pqQues::where('id', $id)->first();
+        $q = Mc4pqQues::where('id', $id)->first();
         if($request->format_title){
             $q->format_title = $request->format_title;
         }
@@ -293,7 +320,7 @@ class Mc2pqController extends Controller
             $q->media_id = $q_media->id;
         }
         $q->save();
-        $answers = Mc2pqAns::where('question_id', $q->id)->get();
+        $answers = Mc4pqAns::where('question_id', $q->id)->get();
         foreach($answers as $ans){
             if($request->ans.$ans->id){
                 $inputAnswer = 'answer'.$ans->id;
@@ -313,12 +340,12 @@ class Mc2pqController extends Controller
     }
 
     public function delete($id){
-        $f = Mc2pqQues::where('id', $id)->first();
+        $f = Mc4pqQues::where('id', $id)->first();
         $f->delete();
-        $ans = Mc2pqAns::where('question_id', $f->id)->pluck('id');
+        $ans = Mc4pqAns::where('question_id', $f->id)->pluck('id');
         if($ans){
             foreach($ans as $a){
-                $f_ans = Mc2pqAns::where('id', $a)->first();
+                $f_ans = Mc4pqAns::where('id', $a)->first();
                 $f_ans->delete();
             }
         }

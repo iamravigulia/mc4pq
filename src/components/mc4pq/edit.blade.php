@@ -3,8 +3,8 @@
   Read the documentation to get started: https://tailwindui.com/documentation
 -->
 <link href="https://unpkg.com/tailwindcss@^1.0/dist/tailwind.min.css" rel="stylesheet">
-@php $que = DB::table('fmt_mc2pq_ques')->where('id', $message)->first(); @endphp
-<div class="fixed z-10 inset-0 overflow-y-auto hidden" id="modalMC2PQ{{$que->id}}">
+@php $que = DB::table('fmt_mc4pq_ques')->where('id', $message)->first(); @endphp
+<div class="fixed z-10 inset-0 overflow-y-auto hidden" id="modalMC4PQ{{$que->id}}">
     
     <div class="flex items-end justify-center min-h-screen pt-4 px-4 pb-20 text-center sm:block sm:p-0">
         <!--
@@ -34,7 +34,7 @@
           To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
       -->
         <div class="inline-block align-bottom bg-white rounded-lg text-left overflow-hidden shadow-xl transform transition-all sm:my-8 sm:align-middle sm:max-w-lg sm:w-full relative -mx-8" role="dialog" aria-modal="true" aria-labelledby="modal-headline">
-            <a onclick="closemodalMC2PQ({{$message}})" class="p-2 w-8 h-8 bg-gray-600 text-white rounded-full absolute right-0 -top-10 -mr-2 -mt-2 z-40" href="javascript:void(0);">x</a>
+            <a onclick="closemodalMC4PQ({{$message}})" class="p-2 w-8 h-8 bg-gray-600 text-white rounded-full absolute right-0 -top-10 -mr-2 -mt-2 z-40" href="javascript:void(0);">x</a>
             <div class="bg-white px-4 pt-5 pb-4 sm:p-6 sm:pb-4">
                 <form action="{{route('fmt.mc2pq.update', $que->id)}}" method="post" enctype="multipart/form-data">
                     @if ($errors ?? '')
@@ -97,9 +97,9 @@
                             </div>
                         </div>
                     </div> --}}
-                    @php $answers = DB::table('fmt_mc2pq_ans')->where('question_id', $que->id)->pluck('id'); @endphp
+                    @php $answers = DB::table('fmt_mc4pq_ans')->where('question_id', $que->id)->pluck('id'); @endphp
                     @foreach ($answers as $ans)
-                        @php $answer = DB::table('fmt_mc2pq_ans')->where('id', $ans)->first(); @endphp
+                        @php $answer = DB::table('fmt_mc4pq_ans')->where('id', $ans)->first(); @endphp
                         {{--  --}}
                         <div class="flex flex-wrap px-2 my-4 border border-gray-500" id="ans1">
                             <div class="w-1/2">
