@@ -17,6 +17,7 @@ class Mc4pqController extends Controller
     // }
     public function store(Request $request)
     {
+        // dd($request->all());
         $pmQ = new Mc4pqQues();
         $pmQ->question              = $request->question;
         $pmQ->format_title          = $request->format_title;
@@ -40,7 +41,7 @@ class Mc4pqController extends Controller
             $request->q_media_3->storeAs('public/answers', time() . $request->q_media_3->getClientOriginalName());
             $q_media_3->url = 'answers/' . time() . $request->q_media_3->getClientOriginalName();
             $q_media_3->save();
-            $pmQ->media2_id = $q_media_3->id;
+            $pmQ->media3_id = $q_media_3->id;
         }
 
         if($request->q_media_4){
@@ -48,7 +49,7 @@ class Mc4pqController extends Controller
             $request->q_media_4->storeAs('public/answers', time() . $request->q_media_4->getClientOriginalName());
             $q_media_4->url = 'answers/' . time() . $request->q_media_4->getClientOriginalName();
             $q_media_4->save();
-            $pmQ->media2_id = $q_media_4->id;
+            $pmQ->media4_id = $q_media_4->id;
         }
 
         /* image1 */
@@ -122,8 +123,9 @@ class Mc4pqController extends Controller
             if($uploadImage[0] == $question_image){
                 // dd($valueImage);
                 $media = new Media();
-                $valueImage->storeAs('public/question_images', time() . uniqid() . $valueImage->getClientOriginalName());
-                $media->url = 'question_images/' . time() . $valueImage->getClientOriginalName();
+                $name = time() . uniqid() . $valueImage->getClientOriginalName();
+                $valueImage->storeAs('public/question_images', $name);
+                $media->url = 'question_images/' . $name;
                 $media->save();
                 return $media->id;
             }
