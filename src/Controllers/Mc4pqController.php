@@ -51,7 +51,10 @@ class Mc4pqController extends Controller
             $q_media_4->save();
             $pmQ->media4_id = $q_media_4->id;
         }
-
+        $pmQ->media_title1 = $request->media_title1;
+        $pmQ->media_title2 = $request->media_title2;
+        $pmQ->media_title3 = $request->media_title3;
+        $pmQ->media_title4 = $request->media_title4;
         /* image1 */
         $pmQ->hint = $request->hint;
         $pmQ->save();
@@ -196,6 +199,10 @@ class Mc4pqController extends Controller
                         "hint"          => $importData[17],
                         "media3"        => $importData[18],
                         "media4"        => $importData[19],
+                        "media_title1"  => $importData[20],
+                        "media_title2"  => $importData[21],
+                        "media_title3"  => $importData[22],
+                        "media_title4"  => $importData[23],
                     );
                     // var_dump($insertData['answer1']);
                     /*  */
@@ -218,17 +225,29 @@ class Mc4pqController extends Controller
                             $media1_id = $this->imagecsv($insertData['media1'], $images);
                             $fill_Q->media1_id = $media1_id;
                         }
+                        if (!empty($insertData['media_title1']) && $insertData['media_title1'] != '') {
+                            $fill_Q->media_title1 = $insertData['media_title1'];
+                        }
                         if (!empty($insertData['media2']) && $insertData['media2'] != '') {
                             $media2_id = $this->imagecsv($insertData['media2'], $images);
                             $fill_Q->media2_id = $media2_id;
+                        }
+                        if (!empty($insertData['media_title2']) && $insertData['media_title2'] != '') {
+                            $fill_Q->media_title2 = $insertData['media_title2'];
                         }
                         if (!empty($insertData['media3']) && $insertData['media3'] != '') {
                             $media3_id = $this->imagecsv($insertData['media3'], $images);
                             $fill_Q->media3_id = $media3_id;
                         }
+                        if (!empty($insertData['media_title3']) && $insertData['media_title3'] != '') {
+                            $fill_Q->media_title3 = $insertData['media_title3'];
+                        }
                         if (!empty($insertData['media4']) && $insertData['media4'] != '') {
                             $media4_id = $this->imagecsv($insertData['media4'], $images);
                             $fill_Q->media4_id = $media4_id;
+                        }
+                        if (!empty($insertData['media_title4']) && $insertData['media_title4'] != '') {
+                            $fill_Q->media_title4 = $insertData['media_title4'];
                         }
                         if ($insertData['hint'] == '-') {
                         }else{

@@ -61,16 +61,32 @@
             <input class="fmt_input" type="text" name="question" placeholder="Question"  style="width: 100%;">
         </div>
         <div>
+            <label class="fmt_label" for="">Media Title 1</label>
+            <input style="margin-top:10px;" type="file" accept="image/*" name="media_title1" id=""required>
+        </div>
+        <div>
             <label class="fmt_label" for="">Image 1</label>
             <input style="margin-top:10px;" type="file" accept="image/*" name="q_media_1" id=""required>
+        </div>
+        <div>
+            <label class="fmt_label" for="">Media Title 2</label>
+            <input style="margin-top:10px;" type="file" accept="image/*" name="media_title2" id=""required>
         </div>
         <div>
             <label class="fmt_label" for="">Image 2</label>
             <input style="margin-top:10px;" type="file" accept="image/*" name="q_media_2" id=""required>
         </div>
         <div>
+            <label class="fmt_label" for="">Media Title 3</label>
+            <input style="margin-top:10px;" type="file" accept="image/*" name="media_title3" id="">
+        </div>
+        <div>
             <label class="fmt_label" for="">Image 3</label>
             <input style="margin-top:10px;" type="file" accept="image/*" name="q_media_3" id="">
+        </div>
+        <div>
+            <label class="fmt_label" for="">Media Title 4</label>
+            <input style="margin-top:10px;" type="file" accept="image/*" name="media_title4" id="">
         </div>
         <div>
             <label class="fmt_label" for="">Image 4</label>
